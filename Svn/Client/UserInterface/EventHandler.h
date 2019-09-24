@@ -39,7 +39,7 @@ public:
 					DeleteEvent(event.first);
 					continue;
 				}
-				if (event.second->time < now) {
+				if (event.second->time <= now) {
 					event.second->func();
 					event.second->count--;
 					event.second->time = now + static_cast<float>(event.second->wait);
