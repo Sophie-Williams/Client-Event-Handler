@@ -1,7 +1,3 @@
-/**
-	Created by blackdragonx61
-	Date:24.09.2019
-**/
 #pragma once
 #include "StdAfx.h"
 #include <functional>
@@ -9,8 +5,8 @@
 #define now CPythonApplication::Instance().GetGlobalTime()
 struct HandlerEventInfo
 {
-	HandlerEventInfo(const std::function<void()> &fn, const int &_wait, const int &_count) : func(fn), wait(_wait), count(_count), time(0){}
-	int wait, count;
+	HandlerEventInfo(const std::function<void()> &fn, const int &_wait, const int &_count) : func(fn), wait(_wait), count(_count), time(0), bind(0){}
+	int wait, count, bind;
 	float time;
 	std::function<void()> func;
 };
@@ -42,6 +38,7 @@ public:
 				if (event.second->time <= now) {
 					event.second->func();
 					event.second->count--;
+					event.second->bind++;
 					event.second->time = now + static_cast<float>(event.second->wait);
 				}
 			}
